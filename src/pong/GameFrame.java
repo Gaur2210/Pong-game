@@ -1,15 +1,17 @@
 package pong;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
+
 public class GameFrame extends JFrame{
+
 	GamePanel panel;
-	GameFrame()
-	{
+	
+	GameFrame(){
 		panel = new GamePanel();
+//		panel.setLayout(new BorderLayout());
 		this.add(panel);
-		this.setTitle("PongGame");
+		this.setTitle("Pong Game");
+		this.setSize(new Dimension(1920,1080));
 		this.setResizable(true);
 		this.setBackground(Color.black);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
