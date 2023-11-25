@@ -62,7 +62,7 @@ Toolkit.getDefaultToolkit().sync(); //helps with animations
 	public void move() {
 		paddle1.move();
 		paddle2.move();
-//		ball.move();
+		ball.move();
 	}
 	
 	public void checkCollision() {
