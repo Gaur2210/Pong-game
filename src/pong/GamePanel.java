@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable{
 
-	volatile int GAME_WIDTH = 1920;
+	volatile int GAME_WIDTH = 1280;
 	volatile int GAME_HEIGHT = (int)(GAME_WIDTH * (9/16.0f));
 //	static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH,GAME_HEIGHT);
 	static final int BALL_DIAMETER = 20;
@@ -22,14 +22,16 @@ public class GamePanel extends JPanel implements Runnable{
 	Paddle paddle2;
 	Ball ball;
 	Score score;
-	GamePanel(){
+	private GameFrame gameFrame;
+	GamePanel(GameFrame gameFrame){
+		this.gameFrame = gameFrame;
 		newPaddles();
-		newBall();
+		newBall(); 
 		score = new Score(GAME_WIDTH,GAME_HEIGHT);
 		this.setFocusable(true);
 		this.addKeyListener(new AL());
 		this.setPreferredSize(new Dimension(GAME_WIDTH,GAME_HEIGHT));
-		
+		this.setVisible(true);
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -54,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
 		paddle2.draw(g);
 		ball.draw(g);
 		score.draw(g);
-Toolkit.getDefaultToolkit().sync(); //helps with the animation
+Toolkit.getDefaultToolkit().sync(); //helps with animations
 
 	}
 	public void move() {
@@ -65,7 +67,7 @@ Toolkit.getDefaultToolkit().sync(); //helps with the animation
 	
 	public void checkCollision() {
 		
-		//bounce ball off window edges
+		//bounce off window edges
 		if(ball.y <=0) {
 			ball.setYDirection(-ball.yVelocity);
 		}
@@ -74,7 +76,7 @@ Toolkit.getDefaultToolkit().sync(); //helps with the animation
 		}
 		
 		
-		//bounce ball off paddles
+		//bounce off paddles
 		if(ball.intersects(paddle1)) {
 			ball.xVelocity = Math.abs(ball.xVelocity);
 			ball.xVelocity++;
@@ -118,7 +120,7 @@ Toolkit.getDefaultToolkit().sync(); //helps with the animation
 			newBall();
 			System.out.println("Player 2: "+Score.player2);
 		}
-		if(ball.x >= GAME_WIDTH-BALL_DIAMETER) {
+		else if(ball.x >= GAME_WIDTH-BALL_DIAMETER) {
 			Score.player1++;
 			PADDLE2_HEIGHT-=PADDLE2_HEIGHT/20;
 			PADDLE1_HEIGHT+=PADDLE1_HEIGHT/20;
@@ -133,6 +135,11 @@ Toolkit.getDefaultToolkit().sync(); //helps with the animation
 		double amountOfTicks =60.0;
 		double frameDur = 1000000000 / amountOfTicks;
 		double delta = 0;
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		while(true) {
 			//responsive{
 			GAME_WIDTH = getWidth();
@@ -150,8 +157,38 @@ Toolkit.getDefaultToolkit().sync(); //helps with the animation
 				repaint();
 				delta--;
 			}
+			if (Score.player1 >= 5 || Score.player2 >= 5) {
+                showGameOver();
+                break;
+            }
 		}
 	}
+	
+	private void showGameOver() {
+        GameOverFrame gameOverFrame = new GameOverFrame();
+        GameOverPanel gameOverPanel = new GameOverPanel(gameOverFrame);
+        Score.player1 = 0;
+        Score.player2 = 0;
+//        newPaddles();
+//        newBall();
+//        repaint();
+        gameFrame.dispose();
+        gameOverFrame.setContentPane(gameOverPanel);
+        gameOverFrame.setVisible(true);
+
+//        int choice = JOptionPane.showConfirmDialog(gameOverPanel, "Do you want to play again?", "Play Again",
+//                JOptionPane.YES_NO_OPTION);
+//
+//        if (choice == JOptionPane.YES_OPTION) {
+//        	gameFrame.dispose();
+//            gameOverFrame.dispose();
+//            StartFrame startFrame = new StartFrame();
+//            startFrame.setVisible(true);
+//        } else {
+//            gameFrame.dispose();
+//            gameOverFrame.dispose();
+//        }
+    }
 	public class AL extends KeyAdapter{
 		public void keyPressed(KeyEvent e) {
 			paddle1.keyPressed(e);

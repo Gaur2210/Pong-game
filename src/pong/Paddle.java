@@ -1,9 +1,8 @@
 package pong;
-import java.awt.*;
+import java.awt.*; 
 import java.awt.event.*;
 
 public class Paddle extends Rectangle{
-
 	int id;
 	int yVelocity;
 	int speed = 10;
