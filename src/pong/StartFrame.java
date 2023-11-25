@@ -21,7 +21,7 @@ public class StartFrame extends JFrame {
         });
         this.add(startPanel);
         this.setTitle("Pong Game - Start");
-        this.setSize(new Dimension(1920, 1080));
+        this.setSize(new Dimension(1280, 720));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
         this.setBackground(Color.black);

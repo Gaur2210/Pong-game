@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void newBall() {
-		random = new Random();
+//		random = new Random();
 		ball = new Ball((GAME_WIDTH/2)-(BALL_DIAMETER/2),(GAME_HEIGHT/2-BALL_DIAMETER/2),BALL_DIAMETER,BALL_DIAMETER);
 	}
 	public void newPaddles() {
@@ -142,11 +142,11 @@ Toolkit.getDefaultToolkit().sync(); //helps with animations
 		}
 		while(true) {
 			//responsive{
-			GAME_WIDTH = getWidth();
-			GAME_HEIGHT = getHeight();
-			score =new Score(GAME_WIDTH,GAME_HEIGHT);
-			paddle1.setXDirection(0);
-			paddle2.setXDirection(GAME_WIDTH - PADDLE_WIDTH);
+			 GAME_WIDTH = getWidth();
+			 GAME_HEIGHT = getHeight();
+			 score =new Score(GAME_WIDTH,GAME_HEIGHT);
+			 paddle1.setXDirection(0);
+			 paddle2.setXDirection(GAME_WIDTH - PADDLE_WIDTH);
 			//}
 			long now = System.nanoTime();
 			delta += (now -lastTime)/frameDur;
@@ -169,25 +169,9 @@ Toolkit.getDefaultToolkit().sync(); //helps with animations
         GameOverPanel gameOverPanel = new GameOverPanel(gameOverFrame);
         Score.player1 = 0;
         Score.player2 = 0;
-//        newPaddles();
-//        newBall();
-//        repaint();
         gameFrame.dispose();
         gameOverFrame.setContentPane(gameOverPanel);
         gameOverFrame.setVisible(true);
-
-//        int choice = JOptionPane.showConfirmDialog(gameOverPanel, "Do you want to play again?", "Play Again",
-//                JOptionPane.YES_NO_OPTION);
-//
-//        if (choice == JOptionPane.YES_OPTION) {
-//        	gameFrame.dispose();
-//            gameOverFrame.dispose();
-//            StartFrame startFrame = new StartFrame();
-//            startFrame.setVisible(true);
-//        } else {
-//            gameFrame.dispose();
-//            gameOverFrame.dispose();
-//        }
     }
 	public class AL extends KeyAdapter{
 		public void keyPressed(KeyEvent e) {
