@@ -6,7 +6,6 @@ public class Paddle extends Rectangle{
 	int id;
 	int yVelocity;
 	int speed = 10;
-	int pressCount =0;
 	boolean pU=false, pD=false;//paddle up, paddle down
 	
 	Paddle(int x, int y, int PADDLE_WIDTH, int PADDLE_HEIGHT, int id){
@@ -19,28 +18,20 @@ public class Paddle extends Rectangle{
 		case 1:
 			if(e.getKeyCode()==KeyEvent.VK_W) {
 				setYDirection(-speed);
-				pressCount++;
-				System.out.print(pressCount);
 				pU=true;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_S) {
 				setYDirection(speed);
-				pressCount++;
-				System.out.print(pressCount);
 				pD=true;
 			}
 			break;
 		case 2:
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
 				setYDirection(-speed);
-				pressCount++;
-				System.out.print(pressCount);
 				pU=true;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 				setYDirection(speed);
-				pressCount++;
-				System.out.print(pressCount);
 				pD=true;
 			}
 			break;
@@ -51,11 +42,9 @@ public class Paddle extends Rectangle{
 		case 1:
 			
 			if(e.getKeyCode()==KeyEvent.VK_W) {
-				pressCount--;
 				pU=false;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_S) {
-				pressCount--;
 				pD=false;
 			}
 			
@@ -70,11 +59,9 @@ public class Paddle extends Rectangle{
 			break;
 		case 2:
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
-				pressCount--;
 				pU=false;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
-				pressCount--;
 				pD=false;
 			}
 			
